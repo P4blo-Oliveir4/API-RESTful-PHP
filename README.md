@@ -1,65 +1,86 @@
-📚 Como usar a API RESTful de Produtos
-Esta API permite gerenciar produtos de uma loja online, incluindo autenticação, cadastro, listagem, filtro, atualização e remoção de produtos. Todas as rotas (exceto registro e login) exigem autenticação via token.
+# 📚 API RESTful de Produtos
 
-⚡ Pré-requisitos
-PHP 8.1+ e Composer instalados
+Esta API permite gerenciar produtos de uma loja online, com funcionalidades de autenticação, cadastro, listagem, filtro, atualização e remoção de produtos.
 
-MySQL rodando (ex: via Laragon, XAMPP, Workbench, etc)
+> 🔐 **Atenção:** Todas as rotas (exceto registro e login) exigem autenticação via token.
 
-Projeto Laravel já migrado (php artisan migrate)
+---
 
-Ferramenta de testes de API (Postman, Insomnia, etc)
+## ⚡ Pré-requisitos
 
-🚀 Fluxo de uso da API
-1. Registrar um novo usuário
-Método: POST
+- PHP **8.1+**
+- Composer
+- MySQL rodando (ex: **Laragon**, **XAMPP**, **Workbench** etc)
+- Projeto Laravel já migrado:
+  ```bash
+  php artisan migrate
+  ```
+- Ferramenta de testes de API como **Postman** ou **Insomnia**
 
-Endpoint: /api/register
+---
 
-Body (JSON):
+## 🚀 Fluxo de Uso da API
 
-json
+### 📌 Registrar um novo usuário
+
+- **Método:** `POST`
+- **Endpoint:** `/api/register`
+
+**Body (JSON):**
+```json
 {
   "name": "Seu Nome",
   "email": "seu@email.com",
   "password": "senha123",
   "password_confirmation": "senha123"
 }
-Resposta: Dados do usuário criado.
+```
 
-2. Fazer login e obter o token
-Método: POST
+➡️ **Resposta:** Dados do usuário criado.
 
-Endpoint: /api/login
+---
 
-Body (JSON):
+### 🔐 Fazer login e obter o token
 
-json
+- **Método:** `POST`
+- **Endpoint:** `/api/login`
+
+**Body (JSON):**
+```json
 {
   "email": "seu@email.com",
   "password": "senha123"
 }
-Resposta:
+```
 
-json
+➡️ **Resposta:**
+```json
 {
   "token": "SEU_TOKEN_AQUI"
 }
-Importante: Guarde o token para usar nas próximas requisições.
+```
 
-3. Autenticação nas rotas protegidas
-Em todas as requisições abaixo, adicione o token no cabeçalho:
+> ⚠️ Guarde esse token! Ele será usado nas próximas requisições.
 
+---
+
+### 🔒 Autenticação nas rotas protegidas
+
+Adicione o token no cabeçalho de todas as requisições:
+
+```
 Authorization: Bearer SEU_TOKEN_AQUI
+```
 
-4. Cadastrar um produto
-Método: POST
+---
 
-Endpoint: /api/produtos
+### ➕ Cadastrar um produto
 
-Body (JSON):
+- **Método:** `POST`
+- **Endpoint:** `/api/produtos`
 
-json
+**Body (JSON):**
+```json
 {
   "nome": "Notebook Dell",
   "descricao": "Notebook com 16GB RAM",
@@ -67,39 +88,48 @@ json
   "quantidade": 5,
   "categoria": "Informática"
 }
-Resposta: Produto criado (status 201).
+```
 
-5. Listar produtos (com paginação)
-Método: GET
+➡️ **Resposta:** Produto criado (HTTP `201`)
 
-Endpoint: /api/produtos?page=1
+---
 
-Resposta: Lista paginada de produtos (10 por página por padrão).
+### 📄 Listar produtos (com paginação)
 
-6. Filtrar produtos por categoria
-Método: GET
+- **Método:** `GET`
+- **Endpoint:** `/api/produtos?page=1`
 
-Endpoint: /api/produtos?categoria=Informática
+➡️ **Resposta:** Lista paginada de produtos (10 por página, por padrão)
 
-Resposta: Lista paginada apenas dos produtos da categoria informada.
+---
 
-7. Visualizar um produto específico
-Método: GET
+### 🔍 Filtrar produtos por categoria
 
-Endpoint: /api/produtos/{id}
+- **Método:** `GET`
+- **Endpoint:** `/api/produtos?categoria=Informática`
 
-Exemplo: /api/produtos/1
+➡️ **Resposta:** Produtos da categoria especificada
 
-Resposta: Dados do produto.
+---
 
-8. Atualizar um produto
-Método: PUT
+### 👁️ Visualizar um produto específico
 
-Endpoint: /api/produtos/{id}
+- **Método:** `GET`
+- **Endpoint:** `/api/produtos/{id}`
 
-Body (JSON):
+**Exemplo:** `/api/produtos/1`
 
-json
+➡️ **Resposta:** Dados do produto
+
+---
+
+### ✏️ Atualizar um produto
+
+- **Método:** `PUT`
+- **Endpoint:** `/api/produtos/{id}`
+
+**Body (JSON):**
+```json
 {
   "nome": "Notebook Dell Atualizado",
   "descricao": "Agora com 32GB RAM",
@@ -107,58 +137,74 @@ json
   "quantidade": 3,
   "categoria": "Informática"
 }
-Resposta: Produto atualizado.
+```
 
-9. Remover um produto
-Método: DELETE
+➡️ **Resposta:** Produto atualizado
 
-Endpoint: /api/produtos/{id}
+---
 
-Exemplo: /api/produtos/1
+### ❌ Remover um produto
 
-Resposta: Mensagem de sucesso.
+- **Método:** `DELETE`
+- **Endpoint:** `/api/produtos/{id}`
 
-10. Visualizar produtos no banco de dados (MySQL Workbench)
-Abra o MySQL Workbench.
+**Exemplo:** `/api/produtos/1`
 
-Conecte-se ao seu servidor MySQL.
+➡️ **Resposta:** Mensagem de sucesso
 
-No painel esquerdo, clique no banco de dados usado pelo Laravel (ex: laravel ou api_loja).
+---
 
-Expanda “Tables” e clique em products.
+### 🗃️ Visualizar produtos no MySQL Workbench
 
-Clique com o botão direito e escolha Select Rows - Limit 1000 para ver todos os produtos cadastrados pela API.
+1. Abra o **MySQL Workbench** e conecte-se ao seu servidor.
+2. Clique no banco de dados usado pelo Laravel (ex: `laravel` ou `api_loja`).
+3. Expanda a seção `Tables` e selecione `products`.
+4. Clique com o botão direito e selecione `Select Rows - Limit 1000` para ver os produtos.
 
-🧪 Dicas para testes
-Use o Postman ou Insomnia para testar todos os endpoints.
+---
 
-Sempre envie o token de autenticação nas rotas protegidas.
+## 🧪 Dicas para Testes
 
-Para paginação, use o parâmetro ?page=2 para acessar as próximas páginas.
+- Use **Postman** ou **Insomnia** para testar todos os endpoints.
+- Sempre envie o token nas rotas protegidas.
+- Para paginação: `?page=2`
+- Para filtro por categoria: `?categoria=Informática`
 
-Para filtrar, use ?categoria=NomeDaCategoria junto com a rota de listagem.
+---
 
-📄 Documentação e exemplos
-Acesse a documentação Swagger em:
+## 📄 Documentação Swagger
+
+Se configurado no projeto, acesse:
+```
 http://localhost:8000/api/documentation
-(se configurado no projeto)
+```
 
-🛠️ Exemplos rápidos de requisições
-Operação	Método	Endpoint	Body (JSON)	Token?
-Registrar	POST	/api/register	name, email, password	Não
-Login	POST	/api/login	email, password	Não
-Criar produto	POST	/api/produtos	nome, descricao, ...	Sim
-Listar produtos	GET	/api/produtos	-	Sim
-Filtrar	GET	/api/produtos?categoria=...	-	Sim
-Ver produto	GET	/api/produtos/{id}	-	Sim
-Atualizar	PUT	/api/produtos/{id}	campos a atualizar	Sim
-Excluir	DELETE	/api/produtos/{id}	-	Sim
-❓ Dúvidas frequentes
-Não consigo acessar uma rota:
-Verifique se está enviando o token corretamente.
+---
 
-Erro de banco de dados:
-Confirme se o banco existe e está configurado no .env.
+## 🛠️ Tabela Resumo das Requisições
 
-Como ver os dados no MySQL?
-Use o MySQL Workbench, phpMyAdmin ou outro cliente MySQL.
+| Operação       | Método | Endpoint                  | Body JSON            | Token? |
+|----------------|--------|---------------------------|----------------------|--------|
+| Registrar      | POST   | `/api/register`           | name, email, password | ❌ Não |
+| Login          | POST   | `/api/login`              | email, password       | ❌ Não |
+| Criar produto  | POST   | `/api/produtos`           | nome, descrição, etc. | ✅ Sim |
+| Listar         | GET    | `/api/produtos`           | -                    | ✅ Sim |
+| Filtrar        | GET    | `/api/produtos?categoria=...` | -              | ✅ Sim |
+| Ver produto    | GET    | `/api/produtos/{id}`      | -                    | ✅ Sim |
+| Atualizar      | PUT    | `/api/produtos/{id}`      | campos a atualizar    | ✅ Sim |
+| Excluir        | DELETE | `/api/produtos/{id}`      | -                    | ✅ Sim |
+
+---
+
+## ❓ Dúvidas Frequentes
+
+- **Não consigo acessar uma rota:**  
+  Verifique se está enviando o token corretamente no cabeçalho.
+
+- **Erro de banco de dados:**  
+  Confirme se o banco de dados existe e está configurado no arquivo `.env`.
+
+- **Como ver os dados no MySQL?**  
+  Use o **MySQL Workbench**, **phpMyAdmin** ou outro cliente MySQL para visualizar os dados da tabela `products`.
+
+---
