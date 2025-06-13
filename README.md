@@ -157,7 +157,7 @@ Authorization: Bearer SEU_TOKEN_AQUI
 ### 🗃️ Visualizar produtos no MySQL Workbench
 
 1. Abra o **MySQL Workbench** e conecte-se ao seu servidor.
-2. Clique no banco de dados usado pelo Laravel (ex: `laravel` ou `api_loja`).
+2. Clique no banco de dados usado pelo Laravel (Nome do servidor: Laravel).
 3. Expanda a seção `Tables` e selecione `products`.
 4. Clique com o botão direito e selecione `Select Rows - Limit 1000` para ver os produtos.
 
@@ -174,7 +174,7 @@ Authorization: Bearer SEU_TOKEN_AQUI
 
 ## 📄 Documentação Swagger
 
-Se configurado no projeto, acesse:
+Acesse:
 ```
 http://localhost:8000/api/documentation
 ```
